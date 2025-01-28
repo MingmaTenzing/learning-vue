@@ -1,47 +1,62 @@
-<script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+<script lang="ts">
+interface user {
+  name: string
+  status: boolean
+  age: number
+  tasks: Array<string>
+}
+
+interface task {
+  todo: string
+}
+
+export default {
+  data() {
+    return {
+      user: {
+        name: 'Mingma Tenzing Sherpa',
+        status: false,
+        age: 20,
+        tasks: ['Task One', 'task two', 'task three'],
+      } as user,
+      task: {
+        todo: '',
+      } as task,
+    }
+  },
+  methods: {
+    addTask(task: task) {
+      if (task.todo == '') {
+        return window.alert("Can't pass an empty string")
+      }
+      this.user.tasks.push(task.todo)
+    },
+  },
+}
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+  <h1>The name is {{ user.name }}</h1>
+  <div v-if="user.status == false">
+    <p>Current user status is {{ user.status }}</p>
+  </div>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
+  <div v-if="user.status == true">
+    <p>Current user status is {{ user.status }}</p>
+  </div>
+  <div>
+    <p>Want to change status?</p>
+    <button @click="user.status = !user.status">change status</button>
+  </div>
 
-  <main>
-    <TheWelcome />
-  </main>
+  <ul v-for="task in user.tasks" :key="task">
+    <li>{{ task }}</li>
+  </ul>
+
+  <div>
+    <p>Add Tasks</p>
+    <input v-model="task.todo" />
+    <p>{{ task.todo }}</p>
+    <button @click="addTask(task)">Add Task</button>
+  </div>
 </template>
-
-<style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
-</style>
