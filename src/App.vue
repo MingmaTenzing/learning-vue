@@ -1,62 +1,16 @@
-<script lang="ts">
-interface user {
-  name: string
-  status: boolean
-  age: number
-  tasks: Array<string>
-}
-
-interface task {
-  todo: string
-}
-
-export default {
-  data() {
-    return {
-      user: {
-        name: 'Mingma Tenzing Sherpa',
-        status: false,
-        age: 20,
-        tasks: ['Task One', 'task two', 'task three'],
-      } as user,
-      task: {
-        todo: '',
-      } as task,
-    }
-  },
-  methods: {
-    addTask(task: task) {
-      if (task.todo == '') {
-        return window.alert("Can't pass an empty string")
-      }
-      this.user.tasks.push(task.todo)
-    },
-  },
-}
+<script setup lang="ts">
+import NavBar from './components/Nav-bar.vue'
+import HeroSection from './components/Hero-section.vue'
+import HomeCards from './components/Home-cards.vue'
+import JobListing from './components/Job-listing.vue'
 </script>
 
 <template>
-  <h1>The name is {{ user.name }}</h1>
-  <div v-if="user.status == false">
-    <p>Current user status is {{ user.status }}</p>
-  </div>
-
-  <div v-if="user.status == true">
-    <p>Current user status is {{ user.status }}</p>
-  </div>
-  <div>
-    <p>Want to change status?</p>
-    <button @click="user.status = !user.status">change status</button>
-  </div>
-
-  <ul v-for="task in user.tasks" :key="task">
-    <li>{{ task }}</li>
-  </ul>
-
-  <div>
-    <p>Add Tasks</p>
-    <input v-model="task.todo" />
-    <p>{{ task.todo }}</p>
-    <button @click="addTask(task)">Add Task</button>
-  </div>
+  <NavBar></NavBar>
+  <HeroSection
+    title="In Search Of Job?"
+    sub_title="We got your back. We are actively working towards providing you the best job that suits your interest and career. From resume building to interview practice, we've got you covered from all corners"
+  ></HeroSection>
+  <HomeCards></HomeCards>
+  <JobListing></JobListing>
 </template>
