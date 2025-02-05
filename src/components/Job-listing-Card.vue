@@ -1,20 +1,7 @@
 <script lang="ts" setup>
 import { defineProps, ref, computed } from 'vue'
 import { RouterLink } from 'vue-router'
-interface Job_Listing {
-  title: string
-  type: string
-  location: string
-  description: string
-  salary: string
-  company: {
-    name: string
-    description: string
-    contactEmail: string
-    contactPhone: string
-  }
-  id: string
-}
+import type { Job_Listing } from '../../job-types'
 
 const props = defineProps<{
   job: Job_Listing
